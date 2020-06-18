@@ -1,0 +1,27 @@
+{
+  "name": "beginning-men",
+  "version": "0.0.2",
+  "description": "practising from the book",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hpdipto/beginning-men.git"
+  },
+  "author": "hpdipto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hpdipto/beginning-men/issues"
+  },
+  "homepage": "https://github.com/hpdipto/beginning-men#readme",
+  "keywords": [
+    "node",
+    "express",
+    "mongodb"
+  ],
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
