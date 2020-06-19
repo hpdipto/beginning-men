@@ -43,3 +43,15 @@ app.get('/post/:id', storePostController);
 const getPostController = require('./controllers/getPost');
 app.post('/posts/store', storePostController);
 
+const newUserController = require('./controllers/newUser');
+app.get('/auth/register', newUserController);
+
+const storeUserController = require('./controllers/storeUser');
+app.post('/users/register', storeUserController);
+
+const loginController = require('./controllers/login');
+app.get('/auth/login', loginController);
+
+const loginUserController = require('./controllers/loginUser');
+app.post('/users/login', loginUserController);
+
