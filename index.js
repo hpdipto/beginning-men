@@ -51,10 +51,10 @@ app.get('/posts/new', authMiddlware, newPostController);
 const homeController = require('./controllers/home');
 app.get('/', homeController);
 
-const storePostController = require('./controllers/storePost');
-app.get('/post/:id', storePostController);
-
 const getPostController = require('./controllers/getPost');
+app.get('/post/:id', getPostController);
+
+const storePostController = require('./controllers/storePost');
 app.post('/posts/store', authMiddlware, storePostController);
 
 const newUserController = require('./controllers/newUser');
