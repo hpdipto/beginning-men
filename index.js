@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const validateMiddleWare = require('./middleware/validationMiddleware');
 const expressSession = require('express-session');
+const flash = require('connect-flash');
 
 mongoose.connect('mongodb://localhost/my_database', {useNewUrlParser: true});
 
@@ -31,6 +32,8 @@ app.use("*", (req, res, next) => {
     loggedIn = req.session.userId;
     next();
 });
+
+app.use(flash());
 
 
 app.listen(3000, () => {
