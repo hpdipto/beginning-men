@@ -37,13 +37,19 @@ app.use("*", (req, res, next) => {
 app.use(flash());
 
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-    port = 4000;
-}
-app.listen(port, () => {
-    console.log("App listening...");
+
+// for localhost
+app.listen(3000, () => {
+    console.log("App listening on port 3000...");
 })
+// for heroku
+// let port = process.env.PORT;
+// if (port == null || port == "") {
+//     port = 4000;
+// }
+// app.listen(port, () => {
+//     console.log("App listening...");
+// })
 
 
 
