@@ -8,7 +8,8 @@ const validateMiddleWare = require('./middleware/validationMiddleware');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
 
-mongoose.connect('mongodb://localhost/my_database', {useNewUrlParser: true});
+// mongoose.connect('mongodb://localhost/my_database', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://clean_blog:1978619@cleanblog-onxpu.mongodb.net/my_database', {useNewUrlParser: true});
 
 const app = new express();
 
