@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const validateMiddleWare = require('./middleware/validationMiddleware');
+const expressSession = require('express-session');
 
 mongoose.connect('mongodb://localhost/my_database', {useNewUrlParser: true});
 
@@ -19,9 +20,17 @@ app.use(bodyParser.urlencoded({extendex:true}));
 
 app.use(fileUpload());
 
-
-
 app.use('/posts/store', validateMiddleWare);
+
+app.use(expressSession({
+    secret: 'keyboard cat'
+}))
+
+global.loggedIn = null;
+app.use("*", (req, res, next) => {
+    loggedIn = req.session.userId;
+    next();
+});
 
 
 app.listen(3000, () => {
@@ -30,9 +39,11 @@ app.listen(3000, () => {
 
 
 
+const authMiddlware = require('./middleware/authMiddleware');
+const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware');
 
 const newPostController = require('./controllers/newPost');
-app.get('/posts/new', newPostController);
+app.get('/posts/new', authMiddlware, newPostController);
 
 const homeController = require('./controllers/home');
 app.get('/', homeController);
@@ -41,17 +52,23 @@ const storePostController = require('./controllers/storePost');
 app.get('/post/:id', storePostController);
 
 const getPostController = require('./controllers/getPost');
-app.post('/posts/store', storePostController);
+app.post('/posts/store', authMiddlware, storePostController);
 
 const newUserController = require('./controllers/newUser');
-app.get('/auth/register', newUserController);
+app.get('/auth/register', redirectIfAuthenticatedMiddleware, newUserController);
 
 const storeUserController = require('./controllers/storeUser');
-app.post('/users/register', storeUserController);
+app.post('/users/register', redirectIfAuthenticatedMiddleware, storeUserController);
 
 const loginController = require('./controllers/login');
-app.get('/auth/login', loginController);
+app.get('/auth/login', redirectIfAuthenticatedMiddleware, loginController);
 
 const loginUserController = require('./controllers/loginUser');
-app.post('/users/login', loginUserController);
+app.post('/users/login', redirectIfAuthenticatedMiddleware, loginUserController);
+
+const logoutController = require('./controllers/logout');
+app.get('/auth/logout', logoutController);
+
+
+app.use((req, res) => res.render('notfound'));
 
